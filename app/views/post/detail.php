@@ -1,0 +1,20 @@
+<h2>Detail</h2>
+<a href="index.php?page=post-list">Quqy lai</a>
+<table border="1px">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Conten</th>
+        <th>Post_Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><?php echo $post->id ?></td>
+        <td><?php echo $post->title ?></td>
+        <td><?php echo $post->content ?></td>
+        <td><?php echo $post->post_time ?></td>
+    </tr>
+    </tbody>
+</table>
