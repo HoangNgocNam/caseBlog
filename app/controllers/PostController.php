@@ -4,16 +4,21 @@ include_once "app/models/PostModel.php";
 class PostController
 {
     protected $postModel;
+//    private $userLogin;
 
     public function __construct()
     {
+//        $this->userLogin = $_SESSION['user'];
         $this->postModel = new PostModel();
     }
 
     public function showAll()
     {
-        $posts = $this->postModel->getAll();
-        include_once "app/views/post/list.php";
+        if (isset($_SESSION['user'])){
+            $posts = $this->postModel->getPostData($_SESSION['user']->id);
+            include_once "app/views/post/list.php";
+        }
+
     }
 
     public function createPost()
@@ -21,6 +26,17 @@ class PostController
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             include_once "app/views/post/create.php";
         } else {
+            if (isset($_FILES["fileUpToLoad"])) {
+                $targetFolder = "upload/";
+                $nameImage = time() . basename($_FILES["fileUpToLoad"]["name"]);
+                $targetFile = $targetFolder . $nameImage;
+                if (move_uploaded_file($_FILES["fileUpToLoad"]["tmp_name"], $targetFile)) {
+                    echo "upload thanh cong";
+                } else {
+                    echo "upload khong thanh cong";
+                }
+                $_REQUEST["image"] = 'http://localhost/bai21/upload/' . $nameImage;
+            }
             try {
                 $this->postModel->addpost($_REQUEST);
                 header("location:index.php?page=post-list");
@@ -52,6 +68,17 @@ class PostController
     public function updatePo()
     {
         if (isset($_REQUEST['id'])){
+            if (isset($_FILES["fileUpToLoad"])) {
+                $targetFolder = "upload/";
+                $nameImage = time() . basename($_FILES["fileUpToLoad"]["name"]);
+                $targetFile = $targetFolder . $nameImage;
+                if (move_uploaded_file($_FILES["fileUpToLoad"]["tmp_name"], $targetFile)) {
+                    echo "upload thanh cong";
+                } else {
+                    echo "upload khong thanh cong";
+                }
+                $_REQUEST["image"] = 'http://localhost/bai21/upload/' . $nameImage;
+            }
             $this->postModel->updatePost($_REQUEST);
             header("location:index.php?page=post-list");
         }

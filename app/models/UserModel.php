@@ -7,26 +7,28 @@ class UserModel extends BaseModel
 
     public function store($request)
     {
-        $sql = "insert into $this->table (name,email,password,birthday,address) values (?,?,?,?,?)";
+        $sql = "insert into $this->table (name,email,password,birthday,address,image) values (?,?,?,?,?,?)";
         $stmt = $this->dbConnect->prepare($sql);
         $stmt->bindParam(1, $request["name"]);
         $stmt->bindParam(2, $request["email"]);
         $stmt->bindParam(3, $request["password"]);
         $stmt->bindParam(4, $request["birthday"]);
         $stmt->bindParam(5, $request["address"]);
+        $stmt->bindParam(6, $request["image"]);
         $stmt->execute();
     }
 
     public function update($request)
     {
-        $sql = "update $this->table set name =? , email =?, password =?, birthday =?, address =? where id=?";
+        $sql = "update $this->table set name =? , email =?, password =?, birthday =?, address =?,image=? where id=?";
         $stmt = $this->dbConnect->prepare($sql);
         $stmt->bindParam(1, $request["name"]);
         $stmt->bindParam(2, $request["email"]);
         $stmt->bindParam(3, $request["password"]);
         $stmt->bindParam(4, $request["birthday"]);
         $stmt->bindParam(5, $request["address"]);
-        $stmt->bindParam(6, $request["id"]);
+        $stmt->bindParam(6, $request["image"]);
+        $stmt->bindParam(7, $request["id"]);
         $stmt->execute();
     }
 

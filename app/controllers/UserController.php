@@ -20,30 +20,30 @@ class UserController
     {
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
             include_once "app/views/user/create.php";
-        } else{
-            if (isset($_FILES["fileUpToLoad"])){
+        } else {
+            if (isset($_FILES["fileUpToLoad"])) {
                 $targetFolder = "upload/";
-                $nameImage = time().basename($_FILES["fileUpToLoad"]["name"]);
-                $targetFile = $targetFolder.$nameImage;
-                if (move_uploaded_file($_FILES["fileUpToLoad"]["tmp_name"],$targetFile)){
+                $nameImage = time() . basename($_FILES["fileUpToLoad"]["name"]);
+                $targetFile = $targetFolder . $nameImage;
+                if (move_uploaded_file($_FILES["fileUpToLoad"]["tmp_name"], $targetFile)) {
                     echo "upload thanh cong";
-                }else{
+                } else {
                     echo "upload khong thanh cong";
                 }
-                $_REQUEST["image"] =$nameImage;
+                $_REQUEST["image"] = 'http://localhost/bai21/upload/' . $nameImage;
             }
             try {
                 $this->userModel->store($_REQUEST);
                 header("location:index.php?page=user-list");
-            }catch (PDOException $e){
-                echo ("ERROR".$e->getMessage());
+            } catch (PDOException $e) {
+                echo("ERROR" . $e->getMessage());
             }
         }
     }
 
     public function delete()
     {
-        if (isset($_REQUEST['id'])){
+        if (isset($_REQUEST['id'])) {
             $this->userModel->delete($_REQUEST['id']);
             header("location:index.php?page=user-list");
         } else {
@@ -53,7 +53,7 @@ class UserController
 
     public function edit()
     {
-        if (isset($_REQUEST['id'])){
+        if (isset($_REQUEST['id'])) {
             $user = $this->userModel->getById($_REQUEST['id']);
             include_once "app/views/user/update.php";
         }
@@ -61,7 +61,18 @@ class UserController
 
     public function update()
     {
-        if (isset($_REQUEST['id'])){
+        if (isset($_REQUEST['id'])) {
+            if (isset($_FILES["fileUpToLoad"])) {
+                $targetFolder = "upload/";
+                $nameImage = time() . basename($_FILES["fileUpToLoad"]["name"]);
+                $targetFile = $targetFolder . $nameImage;
+                if (move_uploaded_file($_FILES["fileUpToLoad"]["tmp_name"], $targetFile)) {
+                    echo "upload thanh cong";
+                } else {
+                    echo "upload khong thanh cong";
+                }
+                $_REQUEST["image"] = 'http://localhost/bai21/upload/' . $nameImage;
+            }
             $this->userModel->update($_REQUEST);
             header("location:index.php?page=user-list");
         }
@@ -69,7 +80,7 @@ class UserController
 
     public function detail()
     {
-        if (isset($_REQUEST['id'])){
+        if (isset($_REQUEST['id'])) {
             $user = $this->userModel->getById($_REQUEST['id']);
             include_once "app/views/user/detail.php";
         }
@@ -77,7 +88,7 @@ class UserController
 
     public function search()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "GET"){
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
             $users = $this->userModel->search($_REQUEST['search']);
             include_once "app/views/user/list.php";
         }

@@ -1,6 +1,6 @@
 <?php
-include_once "app/views/layout/header.php";
-?>
+//include_once "app/views/layout/header.php";
+//?>
 <h2>Hiển Thị Danh Sách</h2>
 <a href="index.php?page=user-create">Add New</a>
 
@@ -29,7 +29,9 @@ include_once "app/views/layout/header.php";
         <?php foreach ($users as $user): ?>
             <tr>
                 <td><?php echo $user->id ?></td>
-                <td><?php echo $user->image ?></td>
+                <td>
+                    <img style="width: 100px;height: auto" src="<?php echo $user->image ?>" alt="">
+                </td>
                 <td><?php echo $user->name ?></td>
                 <td><?php echo $user->email ?></td>
                 <td><?php echo $user->birthday ?></td>
@@ -42,7 +44,7 @@ include_once "app/views/layout/header.php";
         <?php endforeach; ?>
     <?php else: ?>
         <tr>
-            <td>Khong co du lieu</td>
+            <td colspan="6">Khong co du lieu</td>
         </tr>
     <?php endif; ?>
     </tbody>

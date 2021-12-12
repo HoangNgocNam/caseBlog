@@ -10,9 +10,9 @@ class PostModel extends BaseModel
     {
         $sql = "insert into $this->table (title,content,post_time) values (?,?,?)";
         $stmt = $this->dbConnect->prepare($sql);
-        $stmt->bindParam(1,$request["title"]);
-        $stmt->bindParam(2,$request["content"]);
-        $stmt->bindParam(3,$request["post_time"]);
+        $stmt->bindParam(1, $request["title"]);
+        $stmt->bindParam(2, $request["content"]);
+        $stmt->bindParam(3, $request["post_time"]);
         $stmt->execute();
     }
 
@@ -20,12 +20,17 @@ class PostModel extends BaseModel
     {
         $sql = "update $this->table set title=? ,content=?, post_time=? where id=?";
         $stmt = $this->dbConnect->prepare($sql);
-        $stmt->bindParam(1,$request["title"]);
-        $stmt->bindParam(2,$request["content"]);
-        $stmt->bindParam(3,$request["post_time"]);
-        $stmt->bindParam(4,$request["id"]);
+        $stmt->bindParam(1, $request["title"]);
+        $stmt->bindParam(2, $request["content"]);
+        $stmt->bindParam(3, $request["post_time"]);
+        $stmt->bindParam(4, $request["id"]);
         $stmt->execute();
     }
 
-
+    public function getPostData($user_id)
+    {
+        $sql = "select * from $this->table where user_id=".$user_id ;
+        $stmt = $this->dbConnect->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }

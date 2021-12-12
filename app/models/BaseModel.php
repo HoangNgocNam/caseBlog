@@ -14,7 +14,7 @@ class BaseModel
 
     public function getAll()
     {
-        $sql = "select * from $this->table";
+        $sql = "select * from $this->table" ;
         $stmt = $this->dbConnect->query($sql);
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }

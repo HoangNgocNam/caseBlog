@@ -16,4 +16,5 @@ create table `posts`(
                         user_id int (11),
                         foreign key (user_id) references users(id) on delete cascade
 );
-alter table users add column image varchar(255)
+alter table users add column image varchar(255);
+alter table posts add column image varchar(255);
