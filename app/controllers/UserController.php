@@ -27,11 +27,13 @@ class UserController
                 $targetFile = $targetFolder . $nameImage;
                 if (move_uploaded_file($_FILES["fileUpToLoad"]["tmp_name"], $targetFile)) {
                     echo "upload thanh cong";
+                    $_REQUEST["image"] = $nameImage;
                 } else {
                     echo "upload khong thanh cong";
                 }
-                $_REQUEST["image"] = 'http://localhost/bai21/upload/' . $nameImage;
             }
+//            $user_id = $_SESSION["user"]->id;
+//            $_REQUEST["user_id"] = $user_id;
             try {
                 $this->userModel->store($_REQUEST);
                 header("location:index.php?page=user-list");
@@ -62,16 +64,18 @@ class UserController
     public function update()
     {
         if (isset($_REQUEST['id'])) {
+            $user = $this->userModel->getById($_REQUEST["id"]);
+            $_REQUEST["image"] = $user->image;
             if (isset($_FILES["fileUpToLoad"])) {
                 $targetFolder = "upload/";
                 $nameImage = time() . basename($_FILES["fileUpToLoad"]["name"]);
                 $targetFile = $targetFolder . $nameImage;
                 if (move_uploaded_file($_FILES["fileUpToLoad"]["tmp_name"], $targetFile)) {
                     echo "upload thanh cong";
+                    $_REQUEST["image"] = $nameImage;
                 } else {
                     echo "upload khong thanh cong";
                 }
-                $_REQUEST["image"] = 'http://localhost/bai21/upload/' . $nameImage;
             }
             $this->userModel->update($_REQUEST);
             header("location:index.php?page=user-list");

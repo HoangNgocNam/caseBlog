@@ -10,8 +10,8 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body class="container">
-<a href="index.php?page=user-list">Users</a>
-<a href="index.php?page=post-list">Post</a>
+<!--<a href="index.php?page=user-list">Users</a>-->
+<!--<a href="index.php?page=post-list">Post</a>-->
 <?php
 session_start();
 
@@ -22,8 +22,6 @@ $userController = new UserController();
 $postController = new PostController();
 $authController = new AuthController();
 $page = $_GET['page'] ?? null;
-//$action = $_GET['action'] ?? null;
-
 switch ($page) {
 //    case "users":
 //        switch ($action){
@@ -92,7 +90,10 @@ switch ($page) {
     default:
         if (isset($_REQUEST['search'])){
             $userController->search();
+        }else{
+            header("location:index.php?page=login");
         }
+
 }
 
 ?>

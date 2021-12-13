@@ -1,6 +1,6 @@
-<h2>Detail</h2>
-<a href="index.php?page=user-list">Tro lai</a>
-<table border="1px">
+<h2>Chi tiết</h2>
+<a  class="btn btn-warning" href="index.php?page=user-list">Tro lai</a>
+<table class="table table-striped table-bordered ">
     <thead>
     <tr>
         <th>ID</th>
@@ -15,7 +15,7 @@
     <tr>
         <td><?php echo $user->id ?></td>
         <td>
-            <img style="width: 100px;height: auto" src="<?php echo $user->image ?>" alt="">
+            <img style="width: 100px;height: auto" src="<?php echo "upload/" . $user->image ?>" alt="">
         </td>
         <td><?php echo $user->name ?></td>
         <td><?php echo $user->email ?></td>

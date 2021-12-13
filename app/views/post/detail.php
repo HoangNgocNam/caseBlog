@@ -1,24 +1,22 @@
-<h2>Detail</h2>
-<a href="index.php?page=post-list">Quay lai</a>
-<table border="1px">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Image</th>
-        <th>Title</th>
-        <th>Conten</th>
-        <th>Post_Time</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td><?php echo $post->id ?></td>
-        <td>
-            <img style="width: 100px;height: auto" src="<?php echo $post->image ?>" alt="">
-        </td>
-        <td><?php echo $post->title ?></td>
-        <td><?php echo $post->content ?></td>
-        <td><?php echo $post->post_time ?></td>
-    </tr>
-    </tbody>
-</table>
+<h2  style="font-family: 'Georgia,serif'">Chi Tiết</h2>
+<div class="card" style="width: 50%;height: auto" >
+    <img class="card-img-top" src="<?php echo "upload/" . $post->image ?>" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Tiêu Đề</h5>
+        <p class="card-text"> <?php echo $post->title ?></p>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Thời Gian Đăng Bài</h5>
+        <p class="card-text"><?php echo $post->post_time ?></p>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Nội Dung</h5>
+        <ul class="list-group list-group-flush">
+            <textarea  class="list-group-item"><?php echo $post->content ?></textarea>
+        </ul>
+<!--        <textarea  class="list-group-item">--><?php //echo $post->content ?><!--</textarea>-->
+    </div>
+    <div class="card-body">
+        <a class="btn btn-warning" href="index.php?page=post-list">Quay lai</a>
+    </div>
+</div>
